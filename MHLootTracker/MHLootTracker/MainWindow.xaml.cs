@@ -23,6 +23,9 @@ namespace MHLootTracker
         Database db;
 
         List<CheckBox> lootBoxes = new List<CheckBox>();
+
+        GUITimer t;
+        Button makeRunBtn;
         public MainWindow()
         {
             InitializeComponent();
@@ -53,6 +56,32 @@ namespace MHLootTracker
             villainBox.SelectedIndex = 0;
 
             updateLoot();
+
+            t = new GUITimer();
+            Container.Children.Add(t);
+
+            makeRunBtn = new Button();
+            makeRunBtn.Content = "Enter Run";
+            makeRunBtn.Click += MakeRunBtn_Click;
+            Container.Children.Add(makeRunBtn);
+        }
+
+        private void MakeRunBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Hero h = db.data.getHero(heroBox.SelectedIndex);
+            Villain v = db.data.getVillain(villainBox.SelectedIndex);
+            string time = t.getMinutesInt() + ":" + t.getSecondsStr();
+            DateTime date = datePicker.SelectedDate ?? DateTime.Now;
+
+            List<bool> drops = new List<bool>();
+            foreach (CheckBox c in lootPanel.Children)
+            {
+                drops.Add(c.IsChecked ?? false);
+            }
+
+            db.addRun(h, v, time, date, drops);
+
+            db.displayRuns();
         }
 
         private void updateLoot()

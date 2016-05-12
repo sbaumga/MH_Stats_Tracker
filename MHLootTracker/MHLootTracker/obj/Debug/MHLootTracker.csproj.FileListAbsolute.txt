@@ -14,3 +14,21 @@ c:\users\alwaysdeadfred\documents\visual studio 2015\Projects\MHLootTracker\MHLo
 c:\users\alwaysdeadfred\documents\visual studio 2015\Projects\MHLootTracker\MHLootTracker\obj\Debug\MHLootTracker.csproj.GenerateResource.Cache
 c:\users\alwaysdeadfred\documents\visual studio 2015\Projects\MHLootTracker\MHLootTracker\obj\Debug\MHLootTracker.exe
 c:\users\alwaysdeadfred\documents\visual studio 2015\Projects\MHLootTracker\MHLootTracker\obj\Debug\MHLootTracker.pdb
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\bin\Debug\MHLootTracker.exe.config
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\obj\Debug\MHLootTracker.exe
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\obj\Debug\MHLootTracker.pdb
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\bin\Debug\MHLootTracker.exe
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\bin\Debug\MHLootTracker.pdb
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\bin\Debug\System.Data.SQLite.dll
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\bin\Debug\System.Data.SQLite.xml
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\obj\Debug\MHLootTracker.csprojResolveAssemblyReference.cache
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\obj\Debug\MainWindow.g.cs
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\obj\Debug\GUITimer.g.cs
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\obj\Debug\App.g.cs
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\obj\Debug\MHLootTracker_MarkupCompile.cache
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\obj\Debug\MHLootTracker_MarkupCompile.lref
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\obj\Debug\MainWindow.baml
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\obj\Debug\GUITimer.baml
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\obj\Debug\MHLootTracker.g.resources
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\obj\Debug\MHLootTracker.Properties.Resources.resources
+C:\Users\Rick\Documents\GitHub\MH_Stats_Tracker\MHLootTracker\MHLootTracker\obj\Debug\MHLootTracker.csproj.GenerateResource.Cache

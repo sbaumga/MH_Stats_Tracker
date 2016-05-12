@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MHLootTracker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <StackPanel Name="Container" Orientation="Vertical">
+        Title="MainWindow" Height="350" Width="525" Background="#FF666666">
+    <StackPanel Name="Container" Orientation="Vertical" HorizontalAlignment="Center">
         <StackPanel Name="cmbBoxPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
             <ComboBox x:Name="heroBox" Margin="5"/>
             <ComboBox x:Name="villainBox" Margin="5" SelectionChanged="villainBox_SelectionChanged"/>

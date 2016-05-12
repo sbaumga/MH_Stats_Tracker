@@ -15,6 +15,8 @@ namespace MHLootTracker
 
         public BaseData data;
 
+        SQLiteConnection dbConnection;
+
        public Database()
         {
             bool newDatabase = false;
@@ -27,7 +29,7 @@ namespace MHLootTracker
                 newDatabase = true;
             }
 
-            SQLiteConnection dbConnection = new SQLiteConnection("Data Source=MH_Database.sqlite;Version=3;");
+            dbConnection = new SQLiteConnection("Data Source=MH_Database.sqlite;Version=3;");
             dbConnection.Open();
 
             if (newDatabase)
@@ -40,11 +42,11 @@ namespace MHLootTracker
             }
 
             //testInitCreation(dbConnection);
-            testRunsTable(dbConnection);
-
+            //testRunsTable(dbConnection);
+       
         }
 
-        void testInitCreation(SQLiteConnection dbConnection)
+        private void testInitCreation(SQLiteConnection dbConnection)
         {
             Console.WriteLine("Loot\n");
             SQLiteCommand hereosCommand = new SQLiteCommand(
@@ -56,7 +58,7 @@ namespace MHLootTracker
             }
         }
 
-        void testRunsTable(SQLiteConnection dbConnection)
+        private void testRunsTable(SQLiteConnection dbConnection)
         {
             string testInStr = "INSERT INTO Runs (Hero, Villain, Time, Date) " +
                 "VALUES ('Gambit', 'Kingpin', '00:40', '2016-04-25'" +
@@ -111,7 +113,50 @@ namespace MHLootTracker
             }
         }
 
-        void createHeroesTable(SQLiteConnection dbConnection)
+        public void displayRuns()
+        {
+            SQLiteCommand selectCommand = new SQLiteCommand("SELECT * FROM Runs", dbConnection);
+            SQLiteDataReader runReader;
+            runReader = selectCommand.ExecuteReader();
+            while (runReader.Read())
+            {
+                string outputStr = runReader["id"] + " " + runReader["Hero"] + " " + runReader["Villain"] + " " + runReader["Time"] + " " +
+                    runReader["Date"];
+
+                SQLiteCommand itemsCommand = new SQLiteCommand("SELECT ItemName, GotItem FROM RunLoot WHERE RunID = " + runReader["id"], dbConnection);
+                SQLiteDataReader itemsReader = itemsCommand.ExecuteReader();
+
+                string lootString = "";
+                while (itemsReader.Read())
+                {
+                    string gotItem = "" + itemsReader["GotItem"];
+                    if (Int32.Parse(gotItem) == TRUE)
+                    {
+                        lootString += " " + itemsReader["ItemName"] + ",";
+                    }
+                }
+
+                if (lootString == "")
+                {
+                    lootString = " No loot dropped";
+                }
+                outputStr += lootString;
+
+                Console.WriteLine(outputStr);
+            }
+
+            /*
+            selectCommand = new SQLiteCommand("SELECT * FROM RunLoot", dbConnection);
+
+            runReader = selectCommand.ExecuteReader();
+            while (runReader.Read())
+            {
+                Console.WriteLine(runReader["RunID"] + " " + runReader["ItemName"] + " " + runReader["GotItem"]);
+            }
+            */
+        }
+
+        private void createHeroesTable(SQLiteConnection dbConnection)
         {
             string createTableString =
                 "CREATE TABLE Heroes ( " +
@@ -130,7 +175,7 @@ namespace MHLootTracker
             }
         }
 
-        void createVillainsTable(SQLiteConnection dbConnection)
+        private void createVillainsTable(SQLiteConnection dbConnection)
         {
             string createTableString =
                 "CREATE TABLE Villains ( " +
@@ -149,7 +194,7 @@ namespace MHLootTracker
             }
         }
 
-        void createLootTable(SQLiteConnection dbConnection)
+        private void createLootTable(SQLiteConnection dbConnection)
         {
             string createTableString =
                 "CREATE TABLE Loot ( " +
@@ -170,7 +215,7 @@ namespace MHLootTracker
             }
         }
 
-        void createRunsTable(SQLiteConnection dbConnection)
+        private void createRunsTable(SQLiteConnection dbConnection)
         {
             // Hero
             // Villain
@@ -219,6 +264,61 @@ namespace MHLootTracker
             strOut = strOut.Replace("'", "''");
 
             return strOut;
+        }
+
+        public void addRun(Hero h, Villain v, string time, DateTime date, List<bool> drops)
+        {
+            string runString = "INSERT INTO Runs (Hero, Villain, Time, Date) VALUES ("; 
+            runString += "'" + makeStringFitForSQL(h.toString()) + "', ";
+            runString += "'" + makeStringFitForSQL(v.toString()) + "', ";
+            runString += "'" + makeStringFitForSQL(time) + "', ";
+            string d = date.Date.ToString("yyy-MM-dd");
+            runString += "'" + makeStringFitForSQL(d) + "'";
+            runString += ")";
+
+            SQLiteCommand testInCommand = new SQLiteCommand(runString, dbConnection);
+            testInCommand.ExecuteNonQuery();
+
+            SQLiteCommand countCommand = new SQLiteCommand("SELECT MAX(id) AS Count FROM Runs", dbConnection);
+            SQLiteDataReader reader = countCommand.ExecuteReader();
+            int currId = 0;
+            while (reader.Read())
+            {
+                string temp = reader["Count"].ToString();
+                currId = Int32.Parse(temp);
+                Console.WriteLine("Id: " + currId);
+            }
+
+            SQLiteCommand getLootCommand = new SQLiteCommand("SELECT Name FROM Loot WHERE Villain = '" + makeStringFitForSQL(v.toString()) + "'", dbConnection);
+            reader = getLootCommand.ExecuteReader();
+            int itemNum = 0;
+            while (reader.Read())
+            {
+                string insertStr = "";
+                if (itemNum < drops.Count())
+                {
+                    insertStr = "INSERT INTO RunLoot (RunID, ItemName, GotItem) " +
+                        "VALUES (" + currId + ", '" + reader["Name"] + "', ";
+                    if (drops[itemNum])
+                    {
+                        insertStr += TRUE;
+                    }
+                    else
+                    {
+                        insertStr += FALSE;
+                    }
+                    insertStr += ")";
+                } else
+                {
+                    insertStr = "INSERT INTO RunLoot (RunID, ItemName, GotItem) " +
+                        "VALUES (" + currId + ", '" + "Invalid item" + "', -1)";
+                }
+
+                SQLiteCommand insertCommand = new SQLiteCommand(insertStr, dbConnection);
+                insertCommand.ExecuteNonQuery();
+
+                itemNum++;
+            }
         }
 
     }
